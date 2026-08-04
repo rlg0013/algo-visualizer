@@ -1,4 +1,18 @@
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import SortingPage from './pages/SortingPage'
+import GraphPage from './pages/GraphPage'
+
 function App() {
-  return <h1 className="text-3xl font-bold text-blue-600">Hello Tailwind</h1>
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<SortingPage />} />
+        <Route path="/graph" element={<GraphPage />} />
+      </Routes>
+    </>
+  )
 }
+
 export default App
