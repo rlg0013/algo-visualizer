@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Controls({ size, onSizeChange, onNewArray}) {
+function Controls({ size, onSizeChange, onNewArray, onPlay, onPause, onReset}) {
   const [algo, setAlgo] = useState("bubble");
   const [speed, setSpeed] = useState(100);
 
@@ -31,22 +31,28 @@ function Controls({ size, onSizeChange, onNewArray}) {
         <option value="insertion">Insertion Sort</option>
       </select>
 
-      <button className="bg-green-600 text-white px-4 py-2 rounded">
-        Play
-      </button>
-
-      <button className="bg-yellow-600 text-white px-4 py-2 rounded">
-        Pause
-      </button>
-
-      <button className="bg-red-600 text-white px-4 py-2 rounded">
-        Reset
-      </button>
-
       <button
         onClick = {onNewArray}
         className="bg-blue-600 text-white px-4 py-2 rounded">
         New Array
+      </button>
+
+      <button
+        onClick = {onPlay}
+        className="bg-purple-600 text-white px-4 py-2 rounded">
+        Play
+      </button>
+
+      <button
+        onClick = {onPause}
+        className="bg-teal-600 text-white px-4 py-2 rounded">
+        Pause
+      </button>
+
+      <button
+        onClick = {onReset}
+        className="bg-pink-600 text-white px-4 py-2 rounded">
+        Reset
       </button>
 
     </div>
