@@ -1,5 +1,9 @@
 import Bars from '../components/Bars';
 import Controls from '../components/Controls';
+import bubbleSort from '../algorithms/sorting/bubbleSort';
+import getArrayAtStep from '../utils/getArrayAtStep';
+
+
 import useAnimationPlayer from '../hooks/useAnimationPlayer';
 import { useState } from 'react';
 
@@ -10,8 +14,12 @@ function generateRandomArray(size) {
 function SortingPage() {
   const [size, setSize] = useState(20)
   const [array, setArray] = useState(() => generateRandomArray(size))
-  const dummySteps = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-  const { currentStep, isPlaying ,play, pause, reset } = useAnimationPlayer(dummySteps)
+
+  const steps = bubbleSort(array)
+  const { currentStep, isPlaying, play, pause, reset } = useAnimationPlayer(steps)
+
+  const displayArray = getArrayAtStep(steps, currentStep, array)
+
 
   function handleSizeChange(newSize) {
     setSize(newSize)
@@ -30,7 +38,7 @@ function SortingPage() {
         onPlay={play}
         onPause={pause}
         onReset={reset} />
-      <Bars data={array} />
+      <Bars data={displayArray} highlightedIndices = {steps[currentStep]?.indices ?? []} />
       <p>Current Step :{currentStep} {isPlaying ? 'Playing' : 'Paused'}</p>
     </div>
   )
