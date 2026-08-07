@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-function Controls({ size, onSizeChange, onNewArray, onPlay, onPause, onReset}) {
+function Controls({ size, onSizeChange, onNewArray, onPlay, onPause, onReset, speed, onSpeedChange }) {
   const [algo, setAlgo] = useState("bubble");
-  const [speed, setSpeed] = useState(100);
+
 
   return (
     <div className="flex gap-4 p-4 items-center">
@@ -19,7 +19,7 @@ function Controls({ size, onSizeChange, onNewArray, onPlay, onPause, onReset}) {
         min="1"
         max="100"
         value={speed}
-        onChange={(e) => setSpeed(Number(e.target.value))}
+        onChange={(e) => onSpeedChange(Number(e.target.value))}
       />
 
       <select

@@ -16,7 +16,7 @@ function SortingPage() {
   const [array, setArray] = useState(() => generateRandomArray(size))
 
   const steps = bubbleSort(array)
-  const { currentStep, isPlaying, play, pause, reset } = useAnimationPlayer(steps)
+  const { currentStep, isPlaying, play, pause, reset, speed, setSpeed } = useAnimationPlayer(steps)
 
   const displayArray = getArrayAtStep(steps, currentStep, array)
 
@@ -37,7 +37,9 @@ function SortingPage() {
         onSizeChange={handleSizeChange}
         onPlay={play}
         onPause={pause}
-        onReset={reset} />
+        onReset={reset}
+        speed={speed}
+        onSpeedChange={setSpeed} />
       <Bars data={displayArray} highlightedIndices = {steps[currentStep]?.indices ?? []} />
       <p>Current Step :{currentStep} {isPlaying ? 'Playing' : 'Paused'}</p>
     </div>
