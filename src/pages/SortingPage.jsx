@@ -2,6 +2,7 @@ import Bars from '../components/Bars';
 import Controls from '../components/Controls';
 import bubbleSort from '../algorithms/sorting/bubbleSort';
 import getArrayAtStep from '../utils/getArrayAtStep';
+import getSortedIndices from '../utils/getSortedIndices';
 
 
 import useAnimationPlayer from '../hooks/useAnimationPlayer';
@@ -19,6 +20,7 @@ function SortingPage() {
   const { currentStep, isPlaying, play, pause, reset, speed, setSpeed } = useAnimationPlayer(steps)
 
   const displayArray = getArrayAtStep(steps, currentStep, array)
+  const sortedIndices = getSortedIndices(steps, currentStep)
 
 
   function handleSizeChange(newSize) {
@@ -29,6 +31,7 @@ function SortingPage() {
   function handleNewArray() {
     setArray(generateRandomArray(size))
   }
+
   return (
     <div className='p-8'>
       <Controls
@@ -40,7 +43,9 @@ function SortingPage() {
         onReset={reset}
         speed={speed}
         onSpeedChange={setSpeed} />
-      <Bars data={displayArray} highlightedIndices = {steps[currentStep]?.indices ?? []} />
+      <Bars data={displayArray}
+        highlightedIndices={steps[currentStep]?.indices ?? []}
+        sortedIndices={sortedIndices} />
       <p>Current Step :{currentStep} {isPlaying ? 'Playing' : 'Paused'}</p>
     </div>
   )

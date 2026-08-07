@@ -8,16 +8,16 @@ function Controls({ size, onSizeChange, onNewArray, onPlay, onPause, onReset, sp
     <div className="flex gap-4 p-4 items-center">
       <input
         type="range"
-        min="1"
-        max="100"
+        min="50"
+        max="1000"
         value={size}
         onChange={(e) => onSizeChange(Number(e.target.value))}
       />
 
       <input
         type="range"
-        min="1"
-        max="100"
+        min="50"
+        max="1000"
         value={speed}
         onChange={(e) => onSpeedChange(Number(e.target.value))}
       />
