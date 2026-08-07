@@ -3,6 +3,7 @@ import Controls from '../components/Controls';
 import bubbleSort from '../algorithms/sorting/bubbleSort';
 import getArrayAtStep from '../utils/getArrayAtStep';
 import getSortedIndices from '../utils/getSortedIndices';
+import selectionSort from '../algorithms/sorting/selectionSort';
 
 
 import useAnimationPlayer from '../hooks/useAnimationPlayer';
@@ -12,24 +13,36 @@ function generateRandomArray(size) {
   return Array.from({length: size}, ()=> Math.floor(Math.random()*100) + 5)
 }
 
+function getSteps(algo, array) {
+  if (algo == "bubbble") return bubbleSort(array)
+  if (algo == "selection") return selectionSort(array)
+  return bubbleSort(array)
+}
+
+
 function SortingPage() {
   const [size, setSize] = useState(20)
   const [array, setArray] = useState(() => generateRandomArray(size))
+  const [algo, setAlgo] = useState("bubble")
 
-  const steps = bubbleSort(array)
+  const steps = getSteps(algo, array)
   const { currentStep, isPlaying, play, pause, reset, speed, setSpeed } = useAnimationPlayer(steps)
 
   const displayArray = getArrayAtStep(steps, currentStep, array)
   const sortedIndices = getSortedIndices(steps, currentStep)
 
-
   function handleSizeChange(newSize) {
     setSize(newSize)
     setArray(generateRandomArray(newSize))
-}
+  }
 
   function handleNewArray() {
     setArray(generateRandomArray(size))
+  }
+
+  function handleAlgoChange(newAlgo) {
+    setAlgo(newAlgo)
+    reset()
   }
 
   return (
@@ -42,7 +55,8 @@ function SortingPage() {
         onPause={pause}
         onReset={reset}
         speed={speed}
-        onSpeedChange={setSpeed} />
+        onSpeedChange={setSpeed}
+        onAlgoChange={handleAlgoChange} />
       <Bars data={displayArray}
         highlightedIndices={steps[currentStep]?.indices ?? []}
         sortedIndices={sortedIndices} />

@@ -1,8 +1,5 @@
-import { useState } from "react";
 
-function Controls({ size, onSizeChange, onNewArray, onPlay, onPause, onReset, speed, onSpeedChange }) {
-  const [algo, setAlgo] = useState("bubble");
-
+function Controls({ size, onSizeChange, onNewArray, onPlay, onPause, onReset, speed, onSpeedChange, onAlgoChange, algo}) {
 
   return (
     <div className="flex gap-4 p-4 items-center">
@@ -24,7 +21,7 @@ function Controls({ size, onSizeChange, onNewArray, onPlay, onPause, onReset, sp
 
       <select
         value={algo}
-        onChange={(e) => setAlgo(e.target.value)}
+        onChange={(e) => onAlgoChange(e.target.value)}
       >
         <option value="bubble">Bubble Sort</option>
         <option value="selection">Selection Sort</option>
