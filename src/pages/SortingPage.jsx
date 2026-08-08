@@ -4,6 +4,7 @@ import bubbleSort from '../algorithms/sorting/bubbleSort';
 import getArrayAtStep from '../utils/getArrayAtStep';
 import getSortedIndices from '../utils/getSortedIndices';
 import selectionSort from '../algorithms/sorting/selectionSort';
+import mergeSort from '../algorithms/sorting/mergeSort';
 
 
 import useAnimationPlayer from '../hooks/useAnimationPlayer';
@@ -16,6 +17,7 @@ function generateRandomArray(size) {
 function getSteps(algo, array) {
   if (algo == "bubbble") return bubbleSort(array)
   if (algo == "selection") return selectionSort(array)
+  if (algo == "merge") return mergeSort(array)
   return bubbleSort(array)
 }
 
