@@ -6,6 +6,7 @@ import getSortedIndices from '../utils/getSortedIndices';
 import selectionSort from '../algorithms/sorting/selectionSort';
 import mergeSort from '../algorithms/sorting/mergeSort';
 import quickSort from '../algorithms/sorting/quickSort';
+import insertionSort from '../algorithms/sorting/insertionSort';
 
 
 import useAnimationPlayer from '../hooks/useAnimationPlayer';
@@ -20,6 +21,7 @@ function getSteps(algo, array) {
   if (algo == "selection") return selectionSort(array)
   if (algo == "merge") return mergeSort(array)
   if (algo == "quick") return quickSort(array)
+  if (algo == "insertion") return insertionSort(array)
   return bubbleSort(array)
 }
 
