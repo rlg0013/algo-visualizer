@@ -1,16 +1,67 @@
-# React + Vite
+# Algo Visualizer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean, minimal algorithm visualizer built with React, Vite, and Tailwind CSS. The current app focuses on sorting algorithms with animated bars, playback controls, complexity info, and a simple legend for comparing, unsorted, and sorted values.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Sorting visualizer with animated bar updates
+- Bubble Sort, Selection Sort, Insertion Sort, Merge Sort, and Quick Sort options
+- Adjustable array size with a readable visual range
+- Adjustable animation speed with a percentage display
+- Play, pause, reset, and generate-new-array controls
+- Time and space complexity display for each algorithm
+- Minimal responsive UI with clean panels and controls
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- Vite
+- React Router
+- Tailwind CSS
+- ESLint
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Build for production:
+
+```bash
+npm run build
+```
+
+Run lint checks:
+
+```bash
+npm run lint
+```
+
+## Project Structure
+
+```text
+src/
+  algorithms/
+    sorting/          Sorting algorithm step generators
+  components/         Reusable UI pieces like bars, controls, and navbar
+  hooks/              Animation playback logic
+  pages/              Sorting and graph pages
+  utils/              Helpers for deriving array state and sorted indices
+```
+
+## Current Status
+
+The sorting page is the main completed area right now. The graph page route exists as a placeholder for future visualization work.
+
+## License
+
+This project is currently private/personal unless a license is added.
