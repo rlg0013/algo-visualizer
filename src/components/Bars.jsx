@@ -1,6 +1,6 @@
 function Bars({ data, highlightedIndices = [], sortedIndices = [] }) {
   return (
-    <div className="flex items-end gap-1 h-64">
+    <div className="flex h-80 items-end gap-px overflow-hidden rounded-md border border-slate-100 bg-slate-50 px-3 pt-6">
       {data.map((value, index) => {
         const isHighlighted = highlightedIndices.includes(index)
         const isSorted = sortedIndices.includes(index)
@@ -10,7 +10,7 @@ function Bars({ data, highlightedIndices = [], sortedIndices = [] }) {
         return (
           <div
             key={index}
-            className={`${colorClass} w-4`}
+            className={`${colorClass} min-w-0.5 flex-1 rounded-t-sm transition-colors duration-150`}
             style={{ height: `${value * 3}px` }}
           ></div>
         )

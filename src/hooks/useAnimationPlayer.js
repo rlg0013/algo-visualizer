@@ -3,10 +3,11 @@ import { useState, useEffect } from 'react'
 function useAnimationPlayer(steps) {
   const [currentStep, setCurrentStep] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [speed, setSpeed] = useState(300)
+  const [speed, setSpeed] = useState(600)
 
   useEffect(() => {
     if (!isPlaying) return
+    const delay = 1050 - speed
     const interval = setInterval(() => {
       setCurrentStep(prev => {
         if (prev >= steps.length - 1) {
@@ -15,7 +16,7 @@ function useAnimationPlayer(steps) {
         }
         return prev + 1
       })
-    }, speed)
+    }, delay)
     return () => clearInterval(interval)
   }, [isPlaying, speed, steps.length])
 
