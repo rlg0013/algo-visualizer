@@ -31,6 +31,7 @@ function GraphPage() {
   function handleCellUpdate(row, col) {
     setGrid(prevGrid => {
       const cell = prevGrid[row][col]
+
       if (cell.type === "start" || cell.type === "end") {
         return prevGrid
       }
@@ -42,14 +43,49 @@ function GraphPage() {
         ...newRow[col],
         type: newRow[col].type === "wall" ? "empty" : "wall"
       }
+
       newGrid[row] = newRow
+
       return newGrid
     })
   }
 
+  function handleClearWalls() {
+    setGrid(prevGrid => (
+      prevGrid.map(row => (
+        row.map(cell => (
+          cell.type === "wall"
+            ? { ...cell, type: "empty" }
+            : cell
+        ))
+      ))
+    ))
+  }
+
+  function handleClearGrid() {
+    setGrid(createInitialGrid(15, 30))
+  }
+
   return (
     <div>
-      <Grid grid={grid} onCellUpdate={handleCellUpdate} />
+      <Grid
+        grid={grid}
+        onCellUpdate={handleCellUpdate}
+      />
+
+      <button
+        onClick={handleClearWalls}
+        className="bg-orange-600 text-white px-4 py-2 rounded"
+      >
+        Clear Walls
+      </button>
+
+      <button
+        onClick={handleClearGrid}
+        className="bg-red-600 text-white px-4 py-2 rounded"
+      >
+        Clear Grid
+      </button>
     </div>
   )
 }
