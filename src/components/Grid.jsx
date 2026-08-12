@@ -25,8 +25,10 @@ function Grid({ grid, onCellUpdate }) {
           {row.map((cell, colIndex) => {
             let colorClass = "bg-white"
             if (cell.type === "wall") colorClass = "bg-gray-800"
-            else if (cell.type === "start") colorClass = "bg-green-500"
-            else if (cell.type === "end") colorClass = "bg-red-500"
+            else if (cell.displayType === "start") colorClass = "bg-green-500"
+            else if (cell.displayType === "end") colorClass = "bg-red-500"
+            else if (cell.displayType === "visited") colorClass = "bg-purple-500"
+            else if (cell.displayType === "path") colorClass = "bg-yellow-500"
 
             return (
               <div
