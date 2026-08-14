@@ -1,49 +1,68 @@
-# Algo Visualizer
+# Algorithm Visualizer
 
-A clean, minimal algorithm visualizer built with React, Vite, and Tailwind CSS. The current app focuses on sorting algorithms with animated bars, playback controls, complexity info, and a simple legend for comparing, unsorted, and sorted values.
+A React algorithm visualizer that turns sorting and pathfinding algorithms into replayable step-by-step animations. It is built around reusable algorithm step generators, so the visualization logic stays separate from the UI that renders bars, grids, controls, and playback state.
+
+## Live Demo
+
+https://algo-visualizer-eta-seven.vercel.app
 
 ## Features
 
-- Sorting visualizer with animated bar updates
-- Bubble Sort, Selection Sort, Insertion Sort, Merge Sort, and Quick Sort options
-- Adjustable array size with a readable visual range
-- Adjustable animation speed with a percentage display
+- 5 sorting algorithms: Bubble Sort, Selection Sort, Insertion Sort, Merge Sort, and Quick Sort
+- Interactive graph pathfinding with BFS, DFS, and Dijkstra
+- User-placed start and end cells, weighted cells, and drag-to-draw walls
+- Adjustable sorting array size and shared animation speed controls
 - Play, pause, reset, and generate-new-array controls
 - Time and space complexity display for each algorithm
-- Minimal responsive UI with clean panels and controls
+- Responsive React UI with separate sorting and graph routes
+
+## Architecture
+
+The app is organized around a step-recording model. Each algorithm runs as plain JavaScript against a copy of the current data structure and returns a list of serializable steps such as `compare`, `swap`, `markSorted`, `visit`, and `path`. That keeps the algorithm files focused on algorithm behavior, while the React pages decide how to convert the current step into visible state.
+
+`useAnimationPlayer` is the shared playback layer for both the sorting and graph modules. It owns the current step index, play/pause state, reset behavior, and speed control, which lets the visualizers reuse the same timing model even though one renders bars and the other renders a grid.
+
+```text
+Algorithm input
+     |
+     v
+Step generator files
+     |
+     v
+Recorded steps
+     |
+     v
+useAnimationPlayer
+     |
+     v
+Sorting bars / graph grid renderers
+```
+
+The sorting page reconstructs the array at the selected step with `getArrayAtStep` and derives completed positions with `getSortedIndices`. The graph page derives visited and shortest-path cells with `getVisitedCells` and `getPathCells`, while the grid itself stays editable so users can change walls, weights, and start/end placement before replaying an algorithm.
 
 ## Tech Stack
 
 - React
 - Vite
+- Tailwind CSS v4
 - React Router
-- Tailwind CSS
 - ESLint
+- Vercel
 
-## Getting Started
+## Running Locally
 
-Install dependencies:
+Install dependencies and start the dev server:
 
 ```bash
 npm install
-```
-
-Start the development server:
-
-```bash
 npm run dev
 ```
 
-Build for production:
+Create and preview a production build:
 
 ```bash
 npm run build
-```
-
-Run lint checks:
-
-```bash
-npm run lint
+npm run preview
 ```
 
 ## Project Structure
@@ -51,16 +70,22 @@ npm run lint
 ```text
 src/
   algorithms/
+    graphs/           BFS, DFS, and Dijkstra step generators
     sorting/          Sorting algorithm step generators
-  components/         Reusable UI pieces like bars, controls, and navbar
-  hooks/              Animation playback logic
-  pages/              Sorting and graph pages
-  utils/              Helpers for deriving array state and sorted indices
+  components/         Bars, grid, controls, and navigation
+  hooks/              Shared animation playback logic
+  pages/              Sorting and graph visualizer routes
+  utils/              Helpers that derive visual state from recorded steps
 ```
 
-## Current Status
+## What I'd Add Next
 
-The sorting page is the main completed area right now. The graph page route exists as a placeholder for future visualization work.
+- A* search with heuristic visualization so users can compare it against Dijkstra on the same weighted grid
+- Tree visualizations for BFS, DFS, binary search trees, and heap operations
+- Dynamic programming visualizations with table state playback for problems like knapsack, LCS, and coin change
+- Maze generation presets to create more interesting pathfinding test cases
+- Better mobile touch handling for drawing walls and weights on smaller screens
+- Step-by-step explanations beside the animation so the app can work as both a visualizer and a learning tool
 
 ## License
 

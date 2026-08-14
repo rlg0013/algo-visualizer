@@ -28,11 +28,11 @@ const complexityInfo = {
 }
 
 function getSteps(algo, array) {
-  if (algo == "bubbble") return bubbleSort(array)
-  if (algo == "selection") return selectionSort(array)
-  if (algo == "merge") return mergeSort(array)
-  if (algo == "quick") return quickSort(array)
-  if (algo == "insertion") return insertionSort(array)
+  if (algo === "bubble") return bubbleSort(array)
+  if (algo === "selection") return selectionSort(array)
+  if (algo === "merge") return mergeSort(array)
+  if (algo === "quick") return quickSort(array)
+  if (algo === "insertion") return insertionSort(array)
   return bubbleSort(array)
 }
 
