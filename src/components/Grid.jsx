@@ -21,7 +21,7 @@ function Grid({ grid, onCellUpdate }) {
   return (
     <div onMouseUp={handleMouseUp}>
       {grid.map((row, rowIndex) => (
-        <div key={rowIndex} className="flex">
+        <div key={rowIndex} className="flex w-max">
           {row.map((cell, colIndex) => {
             let colorClass = "bg-white"
             if (cell.type === "wall") colorClass = "bg-gray-800"
@@ -36,7 +36,7 @@ function Grid({ grid, onCellUpdate }) {
                 key={colIndex}
                 onMouseDown={() => handleMouseDown(rowIndex, colIndex)}
                 onMouseEnter={() => handleMouseEnter(rowIndex, colIndex)}
-                className={`flex h-6 w-6 select-none items-center justify-center border border-gray-300 text-xs font-semibold text-slate-800 ${colorClass}`}
+                className={`flex h-6 w-6 shrink-0 select-none items-center justify-center border border-gray-300 text-xs font-semibold text-slate-800 ${colorClass}`}
               >
                 {cell.weight > 1 && <span>{cell.weight}</span>}
               </div>
