@@ -5,6 +5,7 @@ import getVisitedCells from '../utils/getVisitedCells'
 import getPathCells from '../utils/getPathCells'
 import bfs from "../algorithms/graphs/bfs"
 import dfs from "../algorithms/graphs/dfs"
+import dijkstra from "../algorithms/graphs/dijkstra"
 import useAnimationPlayer from '../hooks/useAnimationPlayer'
 
 function createInitialGrid(rows, cols) {
@@ -51,6 +52,7 @@ function GraphPage() {
   function getGraphSteps(algo, grid, startCell, endCell) {
     if (algo === "bfs") return bfs(grid, startCell, endCell)
     if (algo === "dfs") return dfs(grid, startCell, endCell)
+    if (algo === "dijkstra") return dijkstra(grid, startCell, endCell)
     return bfs(grid, startCell, endCell)
   }
 
@@ -76,7 +78,7 @@ function GraphPage() {
         return prevGrid.map(gridRow =>
           gridRow.map(cell => {
             if (cell.type === "start") return { ...cell, type: "empty" }
-            if (cell.row === row && cell.col === col) return { ...cell, type: "start" }
+            if (cell.row === row && cell.col === col) return { ...cell, type: "start", weight: undefined }
             return cell
           })
         )
@@ -88,8 +90,30 @@ function GraphPage() {
         return prevGrid.map(gridRow =>
           gridRow.map(cell => {
             if (cell.type === "end") return { ...cell, type: "empty" }
-            if (cell.row === row && cell.col === col) return { ...cell, type: "end" }
+            if (cell.row === row && cell.col === col) return { ...cell, type: "end", weight: undefined }
             return cell
+          })
+        )
+      }
+
+      if (placementMode === "weight") {
+        if (clickedCell.type === "start" || clickedCell.type === "end") {
+          return prevGrid
+        }
+
+        const nextWeight = (clickedCell.weight ?? 1) >= 5
+          ? 1
+          : (clickedCell.weight ?? 1) + 1
+
+        return prevGrid.map(gridRow =>
+          gridRow.map(cell => {
+            if (cell.row !== row || cell.col !== col) return cell
+
+            return {
+              ...cell,
+              type: "empty",
+              weight: nextWeight === 1 ? undefined : nextWeight,
+            }
           })
         )
       }
@@ -103,7 +127,8 @@ function GraphPage() {
 
       newRow[col] = {
         ...newRow[col],
-        type: newRow[col].type === "wall" ? "empty" : "wall"
+        type: newRow[col].type === "wall" ? "empty" : "wall",
+        weight: undefined,
       }
 
       newGrid[row] = newRow
@@ -148,6 +173,7 @@ function GraphPage() {
           >
             <option value="bfs">BFS</option>
             <option value="dfs">DFS</option>
+            <option value="dijkstra">Dijkstra</option>
           </select>
         </label>
 
@@ -161,6 +187,7 @@ function GraphPage() {
             <option value="wall">Place Wall</option>
             <option value="start">Place Start</option>
             <option value="end">Place End</option>
+            <option value="weight">Place Weight</option>
           </select>
         </label>
 

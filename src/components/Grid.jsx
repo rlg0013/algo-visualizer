@@ -29,14 +29,17 @@ function Grid({ grid, onCellUpdate }) {
             else if (cell.displayType === "end") colorClass = "bg-red-500"
             else if (cell.displayType === "visited") colorClass = "bg-purple-500"
             else if (cell.displayType === "path") colorClass = "bg-yellow-500"
+            else if (cell.weight > 1) colorClass = "bg-blue-100"
 
             return (
               <div
                 key={colIndex}
                 onMouseDown={() => handleMouseDown(rowIndex, colIndex)}
                 onMouseEnter={() => handleMouseEnter(rowIndex, colIndex)}
-                className={`w-6 h-6 border border-gray-300 ${colorClass}`}
-              ></div>
+                className={`flex h-6 w-6 select-none items-center justify-center border border-gray-300 text-xs font-semibold text-slate-800 ${colorClass}`}
+              >
+                {cell.weight > 1 && <span>{cell.weight}</span>}
+              </div>
             )
           })}
         </div>
